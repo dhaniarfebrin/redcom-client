@@ -6,6 +6,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+#app {
+  min-height: 100vh;
+}
+
 .navbar {
   background: rgba(255, 255, 255, 0) !important;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;

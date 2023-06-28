@@ -3,7 +3,9 @@ import NavBar from '../components/NavBar.vue';
 </script>
 
 <script>
-export default {}
+export default {
+    name: 'LandingPage'
+}
 </script>
 
 <template lang="">
