@@ -1,3 +1,5 @@
 <template>
-  <h2>halo bang</h2>
+  <div class="">
+    <router-view />
+  </div>
 </template>
