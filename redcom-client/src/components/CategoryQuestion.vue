@@ -1,11 +1,16 @@
 <script>
 export default {
-    name: 'CategoryQuestion'
+    name: 'CategoryQuestion',
+    methods: {
+        goToQuestion() {
+            this.$router.push({ path: '/question' })
+        }
+    }
 }
 </script>
 
 <template>
-    <div class="card rounded shadow-sm card-category d-flex flex-column justify-content-center align-items-center p-3">
+    <div class="card rounded shadow-sm card-category d-flex flex-column justify-content-center align-items-center p-3" @click="goToQuestion">
         <div class="img-category rounded-circle">
             <img src="https://cdn0.iconfinder.com/data/icons/category-of-words-and-phrases/128/All-512.png" alt="">
         </div>

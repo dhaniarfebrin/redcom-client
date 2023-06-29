@@ -18,7 +18,7 @@ export default {
                     <h1 class="fs-1 fw-semibold mb-3">From Asking to <span class="text-danger">Understanding</span></h1>
                     <p class="fw-lighter">RedCom is where hundreds of millions of students and education experts share their knowledge, learning together to solve even the most complex problems.</p>
                     <div class="mt-4">
-                        <router-link to="/question" class="btn btn-lg btn-dark rounded-pill px-5 py-3">Ask Question</router-link>
+                        <router-link to="/create-question" class="btn btn-lg btn-dark rounded-pill px-5 py-3">Ask Question</router-link>
                     </div>
                 </div>
                 <div class="col-md-6 d-flex justify-content-center">

@@ -20,7 +20,7 @@ export default {
             <div class="d-flex align-items-center">
                 <span class="fw-light badge rounded-pill text-bg-secondary">Programming</span>
             </div>
-            <button class="ms-auto btn btn-outline-dark rounded-pill px-4">See</button>
+            <router-link to="/question/1" class="ms-auto btn btn-outline-dark rounded-pill px-4">See</router-link>
         </div>
     </div>
 </template>

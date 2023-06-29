@@ -54,7 +54,7 @@ export default {
                 <!-- end category -->
 
                 <div class="mw-50 row g-0 mt-5">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <div class="border rounded shadow-sm">
 
                             <!-- have question component -->
@@ -62,7 +62,7 @@ export default {
                                 <div class="px-3">
                                     <h1 class="fs-1 fw-semibold">Have a <span class="text-danger">Question</span>?</h1>
                                     <div class="">
-                                        <router-link to="/" class="btn btn-lg btn-dark rounded-pill mt-3 px-4">Ask Questions</router-link>
+                                        <router-link to="/create-question" class="btn btn-lg btn-dark rounded-pill mt-3 px-4">Ask Questions</router-link>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +83,6 @@ export default {
 
                         </div>
                     </div>
-                    <div class="col-md"></div>
                 </div>
             </div>
                 
@@ -93,10 +92,10 @@ export default {
 
 <style scoped>
 .mw-50 {
-    max-width: 45vw;
+    width: 35vw;
 }
 
-.mw-50.category {
-    width: 100%;
+div.mw-50.category {
+    width: 50vw;
 }
 </style>

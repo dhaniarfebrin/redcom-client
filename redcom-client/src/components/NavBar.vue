@@ -1,6 +1,16 @@
 <script>
 export default {
-    name: 'NavBar'
+    name: 'NavBar',
+    data() {
+        return {
+            search: ''
+        }
+    },
+    methods: {
+        searchQuestion() {
+            this.$router.push({ path: `/question`, query: {search: this.search} }) // search
+        }
+    }
 }
 </script>
 
@@ -12,10 +22,10 @@ export default {
             </router-link>
             <div class="position-absolute top-50 start-50 translate-middle">
                 <div class="input-group rounded-pill">
-                    <span class="input-group-text bg-white rounded-start-pill" id="search"><i
+                    <span class="input-group-text bg-body-secondary rounded-start-pill" id="search"><i
                             class="bi bi-search"></i></span>
-                    <input type="text" class="form-control rounded-end-pill" placeholder="Search the question"
-                        aria-label="search" aria-describedby="search">
+                    <input type="text" v-model="search" @keyup.enter="searchQuestion" class="form-control bg-body-secondary rounded-end-pill"
+                        placeholder="Search the question" aria-label="search" aria-describedby="search">
                 </div>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -25,10 +35,10 @@ export default {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <router-link to="#" class="nav-link me-3">Login</router-link>
+                        <router-link to="/login" class="nav-link me-3">Login</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="#" class="btn btn-dark rounded-pill px-4">Register</router-link>
+                        <router-link to="/register" class="btn btn-dark rounded-pill px-4">Register</router-link>
                     </li>
                 </ul>
             </div>
