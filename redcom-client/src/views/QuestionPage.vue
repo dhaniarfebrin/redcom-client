@@ -2,17 +2,97 @@
 import NavBar from '../components/NavBar.vue';
 import CategoryQuestion from '../components/CategoryQuestion.vue';
 import QuestionCard from '../components/QuestionCard.vue';
+import axios from 'axios'
 </script>
 
 <script>
 export default {
-    name: 'QuestionPage'
+    name: 'QuestionPage',
+    data() {
+        return {
+            categoriesData: [],
+            questionsData: [],
+            userLoggedIn: Boolean
+        }
+    },
+    methods: {
+        getCategories() {
+            axios.get('http://localhost:5000/api/kategori')
+                .then(response => {
+                    this.categoriesData = response.data.data
+                })
+                .catch(err => {
+                    if (err.response.status === 404) {
+                        this.categoriesData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
+                })
+        },
+        getQuestions() {
+            axios.get('http://localhost:5000/api/homepage/')
+                .then(response => {
+                    this.questionsData = response.data.data
+                })
+                .catch(err => {
+                    if (err.response.status === 404) {
+                        this.questionsData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
+                })
+        },
+        sortQuestion() {
+            axios.get(`http://localhost:5000/api/homepage/sort-kategori?kategoriPost=${this.$route.query.categoryPost}`)
+                .then(response => {
+                    this.questionsData = response.data.data
+                })
+                .catch(err => {
+                    if (err.response.status === 404) {
+                        this.questionsData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
+                })
+        },
+        searchQuestion() {
+            axios.get(`http://localhost:5000/api/homepage/search?searchPost=${this.$route.query.searchPost}`)
+                .then(response => {
+                    this.questionsData = response.data.data
+                })
+                .catch(err => {
+                    if (err.response.status === 404) {
+                        this.questionsData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
+                })
+        }
+    },
+    beforeMount() {
+        let token = localStorage.getItem("user")
+        this.userLoggedIn = token ? true : false
+
+        this.getCategories()
+        if (this.$route.query.categoryPost) {
+            return this.sortQuestion()
+        } else if (this.$route.query.searchPost) {
+            return this.searchQuestion()
+        }
+        else {
+            return this.getQuestions()
+        }
+    },
+    watch: {
+        '$route.query.categoryPost': 'sortQuestion',
+        '$route.query.searchPost': 'searchQuestion',
+    }
 }
 </script>
 
 <template lang="">
     <div class="mb-5">
-        <NavBar :userLoggedIn="true" />
+        <NavBar :userLoggedIn="userLoggedIn" />
         <div class="mt-5 pt-5">
             <div class="d-flex flex-column align-items-center">
 
@@ -20,33 +100,8 @@ export default {
                 <div class="mw-50 category mt-4">
                     <div class="row">
                         <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
+                        <div class="col-md-2" v-for="category in categoriesData" :key="category._id">
+                            <CategoryQuestion :category="category" />
                         </div>
                         <!-- component category -->
                     </div>
@@ -67,19 +122,9 @@ export default {
                                 </div>
                             </div>
                             <!-- end have question component -->
-
-                            <!-- question -->
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <!-- end question -->
+                            <div>
+                                <QuestionCard v-for="question in questionsData" :key="question._id" :question="question" />
+                            </div>
 
                         </div>
                     </div>

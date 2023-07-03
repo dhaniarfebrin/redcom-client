@@ -1,6 +1,7 @@
 <script>
 export default {
-    name: 'QuestionCard'
+    name: 'QuestionCard',
+    props: ['question']
 }
 </script>
 
@@ -11,16 +12,15 @@ export default {
                 <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg" alt="">
             </div>
             <div class="ms-3 d-flex align-items-center">
-                <span class="fs-5">Dhaniar Febrin</span>
+                <span class="fs-5">{{ question.user_id.username }}</span>
             </div>
         </div>
-        <p class="mt-3 fw-superlight">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio temporibus quibusdam
-            nostrum dolores dolorum quisquam placeat quos culpa pariatur.</p>
+        <p class="mt-3 fw-superlight">{{ question.content }}</p>
         <div class="d-flex">
             <div class="d-flex align-items-center">
-                <span class="fw-light badge rounded-pill text-bg-secondary">Programming</span>
+                <span class="fw-light badge rounded-pill text-bg-secondary">{{ question.kategori_id.kategori }}</span>
             </div>
-            <router-link to="/question/1" class="ms-auto btn btn-outline-dark rounded-pill px-4">See</router-link>
+            <router-link :to="`/question/${question._id}`" class="ms-auto btn btn-outline-dark rounded-pill px-4">See</router-link>
         </div>
     </div>
 </template>
