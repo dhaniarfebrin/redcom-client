@@ -1,16 +1,48 @@
 <script>
+// import jwtdecode from "vue-jwt-decode";
+import axios from 'axios'
+
 export default {
     name: 'NavBar',
     props: ['userLoggedIn'],
     data() {
         return {
-            search: ''
+            search: '',
+            username: ''
         }
     },
     methods: {
         searchQuestion() {
             this.$router.push({ path: `/question`, query: { searchPost: this.search } }) // search
+        },
+        logOut() {
+            localStorage.removeItem("user");
+            this.$router.push("/login");
+        },
+        async getUserDetail() {
+            try {
+                if (localStorage.getItem("user")) {
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("user")}`
+                        }
+                    }
+    
+                    await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
+                    .then(response => {
+                        this.username = response.data.data.username
+                    })
+                    .catch(err => {
+                        console.log("Error fetching category questions", err)
+                    })
+                }
+            } catch (err) {
+                console.log(err);
+            }
         }
+    },
+    created() {
+        this.getUserDetail()
     }
 }
 </script>
@@ -58,11 +90,16 @@ export default {
                             </div>
                         </a>
                         <ul class="dropdown-menu shadow">
-                            <li>
-                                <router-link to="/profile/2" class="dropdown-item">Profile</router-link>
+                            <li class="px-3 py-2">
+                                <p class="m-0 form-text text-dark ">{{ username }}</p>
                             </li>
+                            <hr class="m-1">
                             <li>
-                                <router-link to="/" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right"></i> Logout</router-link>
+                                <router-link to="/profile" class="dropdown-item">Profile</router-link>
+                            </li>
+                            <li @click="logOut">
+                                <a href="#" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right"></i>
+                                    Logout</a>
                             </li>
                         </ul>
                     </li>

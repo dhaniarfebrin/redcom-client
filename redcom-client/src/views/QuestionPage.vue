@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         getCategories() {
-            axios.get(`${import.meta.env.VITE_APP_ROOT_API}/api/kategori`)
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/kategori`)
                 .then(response => {
                     this.categoriesData = response.data.data
                 })
@@ -30,7 +30,7 @@ export default {
                 })
         },
         getQuestions() {
-            axios.get(`${import.meta.env.VITE_APP_ROOT_API}/api/homepage/`)
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/`)
                 .then(response => {
                     this.questionsData = response.data.data
                 })
@@ -69,10 +69,11 @@ export default {
                 })
         }
     },
-    beforeMount() {
+    created() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
-
+    },
+    mounted() {
         this.getCategories()
         if (this.$route.query.categoryPost) {
             return this.sortQuestion()
@@ -113,7 +114,7 @@ export default {
                         <div class="border rounded shadow-sm">
 
                             <!-- have question component -->
-                            <div class="d-flex flex-column p-5">
+                            <div class="d-flex flex-column p-5" v-if="!userLoggedIn">
                                 <div class="px-3">
                                     <h1 class="fs-1 fw-semibold">Have a <span class="text-danger">Question</span>?</h1>
                                     <div class="">
