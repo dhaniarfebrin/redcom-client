@@ -1,6 +1,6 @@
 # redcom-client
 
-[logo](redcom-client/src/assets/img/logo_RedCom.png)
+![logo](redcom-client/src/assets/img/logo_RedCom.png)
 
 ## Recommended IDE Setup
 
