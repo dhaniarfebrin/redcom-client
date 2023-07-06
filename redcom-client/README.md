@@ -1,6 +1,8 @@
 # redcom-client
 
-![logo](redcom-client/src/assets/img/logo_RedCom.png)
+  <p>
+    <img src="redcom-client/src/assets/img/logo_RedCom.png" />
+  </p>
 
 ## Recommended IDE Setup
 
