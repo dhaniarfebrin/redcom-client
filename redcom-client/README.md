@@ -1,6 +1,6 @@
 # redcom-client
 
-This template should help get you started developing with Vue 3 in Vite.
+redcom-client/src/assets/img/logo_RedCom.png
 
 ## Recommended IDE Setup
 
