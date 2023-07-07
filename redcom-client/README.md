@@ -1,6 +1,6 @@
 # redcom-client
 
-<p href=![image](https://github.com/dhaniarfebrin/redcom-client/assets/101605194/47285940-738d-42c6-a10f-64bdae83f398)>
+<p href="redcom-client/src/assets/img/logo_redcom.jpeg">
 
 
 ## Recommended IDE Setup
