@@ -1,7 +1,7 @@
 # redcom-client
 
   <p>
-    <img src="[[redcom-client/src/assets/img/logo_RedCom.png](https://github.com/dhaniarfebrin/redcom-client/blob/master/redcom-client/src/assets/img/logo_RedCom.png)](https://github.com/dhaniarfebrin/redcom-client/blob/master/redcom-client/src/assets/img/logo_redcom.jpeg?raw=true)" />
+    <img src="redcom-client/src/assets/img/logo_redcom.jpeg" />
   </p>
 
 ## Recommended IDE Setup
