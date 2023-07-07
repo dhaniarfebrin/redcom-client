@@ -10,7 +10,8 @@ export default {
             passwordFieldType: "password",
             classShowHide: "bi bi-eye-slash",
             dataLogin: {},
-            messageError: ''
+            messageError: '',
+            isLoading: false
         }
     },
     methods: {
@@ -24,14 +25,23 @@ export default {
             }
         },
         login() {
+            this.isLoading = true
             axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/login`, this.dataLogin)
                 .then(response => {
+                    this.isLoading = false
+
                     const token = response.data.access_token
                     localStorage.setItem("user", token);
                     this.$router.push({ path: '/question' })
+                    this.$toast.success('Login Success', {
+                        duration: 4000,
+                        position: 'top'
+                    })
                 })
                 .catch(err => {
                     if (err.response.status === 401) {
+                        this.isLoading = false
+
                         this.messageError = err.response.data.message
                         console.log("Error fetching: ", err.response.data.message)
                     } else {
@@ -50,10 +60,11 @@ export default {
 </script>
 
 <template>
-    <div class="container mt-auto h-100">
+    <div class="container my-auto h-100">
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h3 class="fw-bold">Welcome <span class="text-danger">Back</span></h3>
             <p class="text-center">Get answers in minutes<br>so you can complete your tasks faster.</p>
+
             <div class="form-login w-25 mt-4">
 
                 <!-- alert -->
@@ -82,11 +93,25 @@ export default {
                             </button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2">Login</button>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2" v-if="isLoading" disabled>
+                        <img src="../assets/img/loader.svg" alt="" width="30">
+                    </button>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2" v-else>
+                        Login
+                    </button>
                 </form>
             </div>
+
             <span class="mt-4">Don't have an account? <router-link to="/register" class="text-danger">Register
                     Here</router-link></span>
         </div>
     </div>
 </template>
+
+<style scoped>
+@media (max-width: 575.98px) {
+    .form-login.w-25 {
+        width: 80vw !important;
+    }
+}
+</style>

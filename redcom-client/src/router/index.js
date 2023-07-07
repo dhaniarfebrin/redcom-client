@@ -8,6 +8,11 @@ import CreateQuestionPage from '../views/CreateQuestionPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
 import EditProfilePage from '../views/EditProfilePage.vue'
 import PageNotFound from '../views/PageNotFound/PageNotFound.vue'
+import DashboardPage from '../views/admin/DashboardPage.vue'
+import UsersPage from '../views/admin/UsersPage.vue'
+import PostsPage from '../views/admin/PostsPage.vue'
+import CommentsPage from '../views/admin/CommentsPage.vue'
+import ReportsPage from '../views/admin/ReportsPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,15 +50,46 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
+      meta: { showQuestionDelete: true },
       component: ProfilePage
     },
     {
-      path: '/edit-profile/:id', // param id
+      path: '/edit-profile',
       name: 'edit-profile',
       component: EditProfilePage
     },
+
+    // Admin Route
     {
-      path: '/:pathMatch(.*)', // param id
+      path: '/admin/dashboard',
+      name: 'admin-dashboard',
+      component: DashboardPage
+    },
+    // {
+    //   path: '/admin/users/:id',
+    //   name: 'admin-user',
+    //   component: UsersPage
+    // },
+    // {
+    //   path: '/admin/posts/:id',
+    //   name: 'admin-post',
+    //   component: PostsPage
+    // },
+    // {
+    //   path: '/admin/comments/:id',
+    //   name: 'admin-comment',
+    //   component: CommentsPage
+    // },
+    {
+      path: '/admin/reports',
+      name: 'admin-report',
+      component: ReportsPage
+    },
+    // End of Admin Route
+
+
+    {
+      path: '/:pathMatch(.*)',
       name: 'page-not-found',
       component: PageNotFound
     },

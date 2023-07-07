@@ -10,7 +10,8 @@ export default {
             passwordFieldType: "password",
             classShowHide: "bi bi-eye-slash",
             dataRegister: {},
-            messageError: ''
+            messageError: '',
+            isLoading: false
         }
     },
     methods: {
@@ -24,14 +25,22 @@ export default {
             }
         },
         register() {
+            this.isLoading = true
             axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/signup`, this.dataRegister)
                 .then(response => {
+                    this.isLoading = false
                     this.$router.push({ path: '/login' })
+                    this.$toast.success('Success to Register', {
+                        duration: 4000,
+                        position: 'top'
+                    })
                 })
                 .catch(err => {
                     if (err.response.status === 401) {
-                        this.messageError = err.response.data.message
-                        console.log("Error fetching: ", err.response.data.message)
+                        this.isLoading = false
+
+                        this.messageError = err.response.data.msg
+                        console.log("Error fetching: ", err.response.data.msg)
                     } else {
                         console.log("Error fetching", err.response.status)
                     }
@@ -48,18 +57,19 @@ export default {
 </script>
 
 <template>
-    <div class="container mt-auto h-100">
+    <div class="container my-auto h-100">
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h2 class="fw-bold">Register</h2>
             <p class="text-center">Tell us about yourself. We need<br>this information to ensure Redcom as a safe place to
                 learn</p>
+
             <div class="form-register w-25 mt-4">
 
                 <!-- alert -->
                 <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert"
                     v-if="messageError">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <div class="m-0">
+                    <div class="m-0 message-error">
                         {{ messageError }}
                     </div>
                 </div>
@@ -86,10 +96,29 @@ export default {
                             </button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2">Register</button>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2" v-if="isLoading" disabled>
+                        <img src="../assets/img/loader.svg" alt="" width="30">
+                    </button>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2" v-else>Register</button>
                 </form>
+
             </div>
-        <span class="mt-4">Already have an account? <router-link to="/login" class="text-danger">Login
-                Here</router-link></span>
+
+            <span class="mt-4">Already have an account? <router-link to="/login" class="text-danger">Login
+                    Here</router-link></span>
+        </div>
     </div>
-</div></template>
+</template>
+
+<style scoped>
+@media (max-width: 575.98px) {
+    .form-register.w-25 {
+        width: 80vw !important;
+    }
+
+    .message-error {
+        font-size: small;
+        margin-left: 8px !important;
+    }
+}
+</style>
