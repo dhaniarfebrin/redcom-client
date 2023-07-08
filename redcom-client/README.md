@@ -2,6 +2,7 @@
 
 <p href="redcom-client/src/assets/img/logo_redcom.jpeg">
 
+<img src="./public/logo/logo.png" alt="Alt text" title="Optional title">
 
 ## Recommended IDE Setup
 
